@@ -4,7 +4,7 @@ import torch
 from diffusers.models.embeddings import get_2d_rotary_pos_embed_lumina
 from transformers import PretrainedConfig, PreTrainedModel
 
-from blip3o.model.lumina_nextdit2d import LuminaNextDiT2DModel
+from .lumina_nextdit2d import LuminaNextDiT2DModel
 
 
 class NextDiTCrossAttnConfig(PretrainedConfig):

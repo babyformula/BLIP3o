@@ -8,7 +8,7 @@ from .clip_encoder import CLIPVisionTower, CLIPVisionTowerS2
 from .eva_clip.eva_clip_encoder import EvaClipVisionTower
 from .dev_eva_clip.eva_vit import EvaViTWrapper
 
-from blip3o.model.nextdit_crossattn import NextDiTCrossAttnConfig, NextDiTCrossAttn
+from ..nextdit_crossattn import NextDiTCrossAttnConfig, NextDiTCrossAttn
 from diffusers.models import AutoencoderKL
 from diffusers.schedulers import FlowMatchEulerDiscreteScheduler
 

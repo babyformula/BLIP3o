@@ -11,11 +11,11 @@ from transformers import AutoConfig, AutoModelForCausalLM, AutoTokenizer
 from transformers.modeling_outputs import CausalLMOutputWithPast
 from transformers.generation.utils import GenerateOutput
 
-from blip3o.model.blip3o_arch import blip3oMetaModel, blip3oMetaForCausalLM
+from ..blip3o_arch import blip3oMetaModel, blip3oMetaForCausalLM
 
 from transformers import Qwen2_5_VLConfig, Qwen2_5_VLModel, Qwen2_5_VLForConditionalGeneration
 
-from blip3o.constants import UND_IMAGE_TOKEN_IDX
+from ...constants import UND_IMAGE_TOKEN_IDX
 
 
 

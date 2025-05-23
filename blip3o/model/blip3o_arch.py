@@ -7,7 +7,7 @@ import torch.nn.functional as F
 from .multimodal_encoder.builder import build_vision_tower, build_gen_vision_tower, build_dit
 from .multimodal_projector.builder import build_vision_projector, build_down_projector, build_gen_vision_projector
 
-from blip3o.constants import IGNORE_INDEX, DEFAULT_IMAGE_TOKEN, DEFAULT_IM_START_TOKEN, DEFAULT_IM_END_TOKEN, IMAGE_TOKEN_IDX, DEFAULT_IM_START_TOKEN_IDX, DEFAULT_IM_END_TOKEN_IDX, UND_IMAGE_TOKEN_IDX
+from ..constants import IGNORE_INDEX, DEFAULT_IMAGE_TOKEN, DEFAULT_IM_START_TOKEN, DEFAULT_IM_END_TOKEN, IMAGE_TOKEN_IDX, DEFAULT_IM_START_TOKEN_IDX, DEFAULT_IM_END_TOKEN_IDX, UND_IMAGE_TOKEN_IDX
 
 
 
@@ -17,8 +17,8 @@ class blip3oMetaModel:
         super(blip3oMetaModel, self).__init__(config)
 
         if hasattr(config, "mm_vision_tower"):
-            # self.vision_tower = build_vision_tower(config, delay_load=True)
-            # self.mm_projector = build_vision_projector(config)
+            self.vision_tower = build_vision_tower(config, delay_load=True)
+            self.mm_projector = build_vision_projector(config)
             self.down_projector = build_down_projector(config)
 
             if 'unpad' in getattr(config, 'mm_patch_merge_type', ''):
@@ -41,11 +41,11 @@ class blip3oMetaModel:
             self.dit, self.vae, self.noise_scheduler = build_dit(config)
 
 
-    # def get_vision_tower(self):
-    #     vision_tower = getattr(self, 'vision_tower', None)
-    #     if type(vision_tower) is list:
-    #         vision_tower = vision_tower[0]
-    #     return vision_tower
+    def get_vision_tower(self):
+        vision_tower = getattr(self, 'vision_tower', None)
+        if type(vision_tower) is list:
+            vision_tower = vision_tower[0]
+        return vision_tower
 
 
     def get_gen_vision_tower(self):
