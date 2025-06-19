@@ -5,15 +5,14 @@ conda activate  blip3o
 
 export HF_HOME=/HF/Home/
 export OUTPUT_FOLDER=/Your/Model/Output/
-export IMG_FOLDER=/Your/Image/Folder
+export IMG_FOLDER=/Your/SFT/Image/Folder
 
-## import journeyDB folder if you want to use journeyDB, and then you need to add a training argument below   --journeyDB_folder  ${journeyDB_folder}  \  The  journeyDB_folder needs to be the format like:  /fsx/sfr/data/jiuhai/hub/datasets--JourneyDB--JourneyDB/snapshots/e191aa61ca37e5e4418707ade4df5deb5c6d5d8f
-export journeyDB_folder=/Your/JourneyDB/Folder  
+
 
 torchrun --nproc_per_node=8 \
     blip3o/train/train_mem.py \
     --deepspeed ./deepspeed_scripts/zero1.json \
-    --model_name_or_path Qwen/Qwen2.5-VL-7B-Instruct  \
+    --model_name_or_path Your/Pretrain/Model  \
     --version qwen \
     --data_type "mix" \
     --image_folder ${IMG_FOLDER} \
@@ -36,8 +35,7 @@ torchrun --nproc_per_node=8 \
     --learning_rate 1e-4 \
     --weight_decay 0. \
     --warmup_ratio 0.003 \
-    --lr_scheduler_type "cosine_with_min_lr" \
-    --lr_scheduler_kwargs '{"min_lr":1e-5}' \
+    --lr_scheduler_type cosine \
     --model_max_length 512 \
     --logging_steps 1 \
     --tf32 True \
@@ -48,8 +46,7 @@ torchrun --nproc_per_node=8 \
     --n_query 64 \
     --n_und_query 0 \
     --report_to none \
-    --run_name blip3o_qwen_vl_7b
-
+    --run_name blip3o_qwen_vl_sft
 
 
 
